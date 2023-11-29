@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Registration Form</title>
+<link rel="stylesheet" type="text/css" href="./CSS.css">
+<style>
+    body {
+      background-image: url('background.jpg');
+      background-size: cover; 
+      background-repeat: no-repeat; 
+    }
+  </style>
+</head>
+<body>
+<h2>Registration Form</h2>
+<form id="myForm">
+ <label for="fname">First Name:</label><br>
+ <input type="text" id="fname" name="fname"><br>
+ <label for="lname">Last Name:</label><br>
+ <input type="text" id="lname" name="lname"><br>
+ <label for="email">Email:</label><br>
+ <input type="text" id="email" name="email"><br>
+ <label for="password">Password:</label><br>
+ <input type="password" id="password" name="password"><br>
+ <label for="cpassword">Confirm Password:</label><br>
+ <input type="password" id="cpassword" name="cpassword"><br>
+ <input type="submit" value="Submit">
+</form>
+<div></div>
+<h2 id="confirmMsg" class="hidden">
+</h2>
+
+<script>
+    document.getElementById('myForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    let password = document.getElementById("password").value;
+    let cpassword = document.getElementById("cpassword").value;
+
+    if(password === cpassword){
+      document.getElementById("confirmMsg").innerHTML = "Registration successful!";
+      document.getElementById("confirmMsg").style.color = "green";
+    } else {
+      document.getElementById("confirmMsg").innerHTML = "Passwords do not match!";
+      document.getElementById("confirmMsg").style.color = "red";
+    }
+    
+    if (!validateEmail(document.getElementById('email').value)) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+
+    if (!validatePassword(document.getElementById('password').value)) {
+        alert('Password must contain at least one uppercase letter,one digit,and one special character.');
+        return;
+    }
+    document.getElementById('myForm').style.display = 'none';
+    document.getElementById('confirmMsg').classList.remove('hidden');
+});
+
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function validatePassword(password) {
+    const passwordRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
+    return passwordRegex.test(password);
+}
+
+</script>
+
+</body>
+</html>
